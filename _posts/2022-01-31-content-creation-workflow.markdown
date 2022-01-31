@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Welcome to Jekyll!"
+title:  "Simple Content Creation Workflow!"
 date:   2022-01-31 21:07:38 +1100
 categories: jekyll update
 ---
