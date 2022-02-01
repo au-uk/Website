@@ -1,7 +1,3 @@
----
-layout: post
-title:  "A Simple Content Creation Workflow"
-date:   2022-01-31 21:07:38 +1100
 
 **TD;LR** *A simple workflow to create and publish content, from any device, for free, using Joplin, GitHub Desktop and GitHub Pages (a.k.a jekyll).*
 
