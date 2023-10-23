@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Browser Information</title>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="text-center mt-4">
+            <h1 class="display-4">Browser Information</h1>
+        </header>
+
+        <!-- Main Content Section -->
+        <section class="mt-4">
+            <div class="row">
+                <!-- Browser Info -->
+                <div class="col-md-6 offset-md-3">
+                    <h2>Your Browser:</h2>
+                    <p id="browserInfo">Loading...</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // JavaScript code to display browser information
+        var browserInfo = navigator.userAgent;
+        document.getElementById('browserInfo').textContent = browserInfo;
+    </script>
+</body>
+</html>
