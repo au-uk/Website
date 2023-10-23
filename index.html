@@ -16,20 +16,6 @@
             position: relative;
         }
 
-        header {
-            background-color: inherit;
-            padding: 20px;
-        }
-
-        section {
-            padding: 20px;
-        }
-
-        footer {
-            background-color: inherit;
-            padding: 10px;
-        }
-
         .user-data {
             position: absolute;
             top: 50%;
@@ -39,10 +25,6 @@
         }
 
         @media (max-width: 768px) {
-            header, section, footer {
-                padding: 10px;
-            }
-
             .user-data {
                 font-size: 1rem;
             }
@@ -50,59 +32,62 @@
     </style>
 </head>
 <body>
-    <header>
-        <h1>Random Color Cycle with User Data</h1>
-    </header>
-
-    <section id="content">
-    </section>
-
-    <footer>
-        &copy; 2023 AU-UK
-    </footer>
-
     <div class="user-data" id="userData">
-        <p><strong>Browser:</strong> <span id="browserInfo">Loading...</span></p>
-        <p><strong>Operating System:</strong> <span id="osInfo">Loading...</span></p>
-        <p><strong>Date:</strong> <span id="dateInfo">Loading...</span></p>
-        <p><strong>Time:</strong> <span id="timeInfo">Loading...</span></p>
-        <p><strong>Timezone:</strong> <span id="timezoneInfo">Loading...</span></p>
     </div>
 
     <script>
+        // User data elements
+        const userDataElements = [
+            { label: "Browser", id: "browserInfo" },
+            { label: "Operating System", id: "osInfo" },
+            { label: "Date", id: "dateInfo" },
+            { label: "Time", id: "timeInfo" },
+            { label: "Timezone", id: "timezoneInfo" }
+        ];
+
         // JavaScript to change the background and text colors randomly
         function changeColors() {
             const colors = ["#007BFF", "#FF5733", "#33FF57", "#5733FF", "#FF3363", "#33FFC5"];
             const body = document.body;
-            const header = document.querySelector("header");
-            const section = document.querySelector("#content");
-            const footer = document.querySelector("footer");
             const userData = document.getElementById("userData");
 
             setInterval(function() {
                 const randomColor = colors[Math.floor(Math.random() * colors.length)];
                 body.style.backgroundColor = randomColor;
                 body.style.color = getContrastColor(randomColor);
-                header.style.backgroundColor = "inherit";
-                section.style.backgroundColor = "inherit";
-                footer.style.backgroundColor = "inherit";
-                updateUserData();
+                updateRandomUserData(userData);
             }, 3000); // Change colors and user data every 3 seconds
         }
 
-        function updateUserData() {
-            const userData = document.getElementById("userData");
-            const browserInfo = document.getElementById("browserInfo");
-            const osInfo = document.getElementById("osInfo");
-            const dateInfo = document.getElementById("dateInfo");
-            const timeInfo = document.getElementById("timeInfo");
-            const timezoneInfo = document.getElementById("timezoneInfo");
+        function updateRandomUserData(userData) {
+            const randomIndex = Math.floor(Math.random() * userDataElements.length);
+            const userElement = userDataElements[randomIndex];
+            const elementId = userElement.id;
+            const elementLabel = userElement.label;
+            userData.innerHTML = `<p><strong>${elementLabel}:</strong> <span id="${elementId}">Loading...</span></p>`;
+            updateUserData(elementId);
+        }
 
-            browserInfo.textContent = navigator.userAgent;
-            osInfo.textContent = navigator.platform;
-            dateInfo.textContent = new Date().toDateString();
-            timeInfo.textContent = new Date().toLocaleTimeString();
-            timezoneInfo.textContent = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        function updateUserData(elementId) {
+            const element = document.getElementById(elementId);
+
+            switch (elementId) {
+                case "browserInfo":
+                    element.textContent = navigator.userAgent;
+                    break;
+                case "osInfo":
+                    element.textContent = navigator.platform;
+                    break;
+                case "dateInfo":
+                    element.textContent = new Date().toDateString();
+                    break;
+                case "timeInfo":
+                    element.textContent = new Date().toLocaleTimeString();
+                    break;
+                case "timezoneInfo":
+                    element.textContent = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                    break;
+            }
         }
 
         function getContrastColor(backgroundColor) {
@@ -115,7 +100,7 @@
 
         // Start changing colors and updating user data
         changeColors();
-        updateUserData();
+        updateRandomUserData(document.getElementById("userData"));
     </script>
 </body>
 </html>
