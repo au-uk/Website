@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="myBlogApp">
 <head>
     <meta charset="UTF-8">
     <title>My Tech Blog</title>
@@ -9,23 +9,21 @@
     <div class="container">
         <!-- Header Section -->
         <header class="text-center mt-4">
-            <h1 class="display-4">My Tech Blog</h1>
+            <h1 class="display-4">My Tech Blog v1</h1>
         </header>
 
         <!-- Main Content Section -->
         <section class="mt-4">
             <div class="row">
                 <!-- Blog Posts Column -->
-                <div class="col-md-8" ng-app="myBlogApp">
-                    <div ng-controller="MainController">
-                        <!-- Loop through and display each blog post -->
-                        <div class="blog-post" ng-repeat="post in blogPosts">
-                            <h2>{{ post.title }}</h2>
-                            <p class="text-muted">{{ post.date }}</p>
-                            <p>{{ post.content }}</p>
-                            <a href="#/post/{{ post.id }}" class="btn btn-primary">Read More</a>
-                            <hr>
-                        </div>
+                <div class="col-md-8">
+                    <!-- Loop through and display each blog post -->
+                    <div class="blog-post" ng-repeat="post in blogPosts">
+                        <h2>{{ post.title }}</h2>
+                        <p class="text-muted">{{ post.date }}</p>
+                        <p>{{ post.content }}</p>
+                        <a href="#/post/{{ post.id }}" class="btn btn-primary">Read More</a>
+                        <hr>
                     </div>
                 </div>
 
@@ -45,46 +43,110 @@
 
     <!-- Footer Section -->
     <footer class="text-center mt-4">
-        <h2>Unveiling Your Digital Footprint: What Websites Know About You</h2>
         <p><strong>Browser:</strong> <span id="browserInfo"></span></p>
         <p><strong>Operating System:</strong> <span id="osInfo"></span></p>
         <p><strong>Date:</strong> <span id="dateInfo"></span></p>
         <p><strong>Time:</strong> <span id="timeInfo"></span></p>
         <p><strong>Timezone:</strong> <span id="timezoneInfo"></span></p>
-        <p><strong>Location:</strong> <span id="locationInfo"></span></p>
-        <p><strong>Language:</strong> <span id="languageInfo"></span></p>
-        <p><strong>Device Resolution:</strong> <span id="resolutionInfo"></span></p>
-        <p><strong>Referral Source:</strong> <span id="referralInfo"></span></p>
-        <p><strong>User Status:</strong> <span id="userStatusInfo"></span></p>
     </footer>
 
     <script src="https://ajax.googleapis.com/libs/angularjs/1.8.2/angular.min.js"></script>
     <script>
-        var app = angular.module('myBlogApp', []);
+        var app = angular.module('myBlogApp', ['ngRoute']);
+
+        app.config(function($routeProvider) {
+            // Set up AngularJS routing for different views (main blog and individual post)
+            $routeProvider
+                .when('/', {
+                    templateUrl: 'blog.html',
+                    controller: 'MainController'
+                })
+                .when('/post/:postId', {
+                    templateUrl: 'post.html',
+                    controller: 'PostController'
+                })
+                .otherwise({
+                    redirectTo: '/'
+                });
+        });
 
         app.controller('MainController', function($scope) {
+            // Blog posts data
             $scope.blogPosts = [
                 {
                     id: 1,
                     title: 'Blog Post 1',
                     date: '2023-01-01',
-                    content: 'This is the content of Blog Post 1.'
+                    content: 'This is the content of Blog Post 1.',
+                    categories: ['Tech', 'Programming']
                 },
                 {
                     id: 2,
                     title: 'Blog Post 2',
                     date: '2023-02-15',
-                    content: 'This is the content of Blog Post 2.'
-                }
+                    content: 'This is the content of Blog Post 2.',
+                    categories: ['Tech', 'Gadgets']
+                },
+                // Add more blog posts here
             ];
 
-            $scope.categories = ['Tech', 'Programming', 'Gadgets'];
+            // Get unique categories for filtering
+            $scope.categories = getUniqueCategories($scope.blogPosts);
 
+            // Filter blog posts by category
             $scope.filterByCategory = function(category) {
                 // Implement filtering logic here
                 // Update the blogPosts array to show only posts in the selected category
             };
+
+            // Collect user information
+            var browserInfo = getBrowserInfo();
+            var osInfo = getOsInfo();
+            var dateInfo = getCurrentDate();
+            var timeInfo = getCurrentTime();
+            var timezoneInfo = getTimezone();
+
+            document.getElementById('browserInfo').textContent = browserInfo;
+            document.getElementById('osInfo').textContent = osInfo;
+            document.getElementById('dateInfo').textContent = dateInfo;
+            document.getElementById('timeInfo').textContent = timeInfo;
+            document.getElementById('timezoneInfo').textContent = timezoneInfo;
         });
+
+        app.controller('PostController', function($scope, $routeParams) {
+            // Load and display the individual blog post based on postId
+        });
+
+        function getUniqueCategories(blogPosts) {
+            // Implement a function to extract unique categories from the blog posts
+        }
+
+        function getBrowserInfo() {
+            // Get and return browser information
+            return navigator.userAgent;
+        }
+
+        function getOsInfo() {
+            // Get and return operating system information
+            return navigator.platform;
+        }
+
+        function getCurrentDate() {
+            // Get and return the current date
+            var now = new Date();
+            return now.toDateString();
+        }
+
+        function getCurrentTime() {
+            // Get and return the current time
+            var now = new Date();
+            return now.toLocaleTimeString();
+        }
+
+        function getTimezone() {
+            // Get and return the user's timezone
+            return Intl.DateTimeFormat().resolvedOptions().timeZone;
+        }
     </script>
 </body>
 </html>
