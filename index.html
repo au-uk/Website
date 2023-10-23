@@ -26,13 +26,19 @@
             font-size: 1rem;
         }
 
-        @keyframes scrollData {
-            0% {
-                transform: translateX(100%);
-            }
-            100% {
-                transform: translateX(-100%);
-            }
+        /* Custom CSS for the additional section */
+        .additional-section {
+            height: calc(100vh - 40px); /* Adjust height to account for the web banner */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: background-color 2s, color 2s;
+        }
+
+        /* Center the content in the additional section */
+        .additional-content {
+            font-size: 2rem;
         }
     </style>
 </head>
@@ -48,6 +54,13 @@
                 <strong>Location:</strong> <span id="locationInfo">Loading...</span>
                 <strong>Language:</strong> <span id="languageInfo">Loading...</span>
             </p>
+        </div>
+    </div>
+
+    <!-- Additional Section with Changing Colors -->
+    <div class="additional-section" id="additionalSection">
+        <div class="additional-content">
+            <p>This is the additional section with changing colors.</p>
         </div>
     </div>
 
@@ -91,6 +104,19 @@
             }, 3000);
         }
 
+        // Function to change the additional section's background and text colors
+        function changeAdditionalSectionColors() {
+            const additionalSection = document.getElementById('additionalSection');
+            const colors = ['#FF5733', '#33FF57', '#5733FF', '#FF3363', '#33FFC5', '#007BFF'];
+            let index = 0;
+
+            setInterval(() => {
+                additionalSection.style.backgroundColor = colors[index];
+                additionalSection.style.color = getContrastColor(colors[index]);
+                index = (index + 1) % colors.length;
+            }, 3000);
+        }
+
         // Function to calculate contrast color for text
         function getContrastColor(backgroundColor) {
             const r = parseInt(backgroundColor.slice(1, 3), 16);
@@ -102,8 +128,9 @@
             return brightness > 128 ? '#000' : '#fff';
         }
 
-        // Start changing banner colors
+        // Start changing banner and additional section colors
         changeBannerColors();
+        changeAdditionalSectionColors();
     </script>
 </body>
 </html>
