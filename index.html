@@ -1,29 +1,31 @@
 <!DOCTYPE html>
-<html ng-app="myBlogApp">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>au-uk</title>
+    <title>My Tech Blog</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container">
         <!-- Header Section -->
         <header class="text-center mt-4">
-            <h1 class="display-4">An Aide-mémoire for an Ailing Brain</h1>
+            <h1 class="display-4">My Tech Blog</h1>
         </header>
 
         <!-- Main Content Section -->
         <section class="mt-4">
             <div class="row">
                 <!-- Blog Posts Column -->
-                <div class="col-md-8">
-                    <!-- Loop through and display each blog post -->
-                    <div class="blog-post" ng-repeat="post in blogPosts">
-                        <h2>{{ post.title }}</h2>
-                        <p class="text-muted">{{ post.date }}</p>
-                        <p>{{ post.content }}</p>
-                        <a href="#/post/{{ post.id }}" class="btn btn-primary">Read More</a>
-                        <hr>
+                <div class="col-md-8" ng-app="myBlogApp">
+                    <div ng-controller="MainController">
+                        <!-- Loop through and display each blog post -->
+                        <div class="blog-post" ng-repeat="post in blogPosts">
+                            <h2>{{ post.title }}</h2>
+                            <p class="text-muted">{{ post.date }}</p>
+                            <p>{{ post.content }}</p>
+                            <a href="#/post/{{ post.id }}" class="btn btn-primary">Read More</a>
+                            <hr>
+                        </div>
                     </div>
                 </div>
 
@@ -33,7 +35,7 @@
                     <ul class="list-group">
                         <!-- Loop through and display categories with filter links -->
                         <li class="list-group-item" ng-repeat="category in categories">
-                            <a ng-click("filterByCategory(category)")">{{ category }}</a>
+                            <a ng-click="filterByCategory(category)">{{ category }}</a>
                         </li>
                     </ul>
                 </div>
@@ -58,73 +60,31 @@
 
     <script src="https://ajax.googleapis.com/libs/angularjs/1.8.2/angular.min.js"></script>
     <script>
-        var app = angular.module('myBlogApp', ['ngRoute']);
-
-        app.config(function($routeProvider) {
-            // Set up AngularJS routing for different views (main blog and individual post)
-            $routeProvider
-                .when('/', {
-                    templateUrl: 'blog.html',
-                    controller: 'MainController'
-                })
-                .when('/post/:postId', {
-                    templateUrl: 'post.html',
-                    controller: 'PostController'
-                })
-                .otherwise({
-                    redirectTo: '/'
-                });
-        });
+        var app = angular.module('myBlogApp', []);
 
         app.controller('MainController', function($scope) {
-            // Blog posts data
             $scope.blogPosts = [
                 {
                     id: 1,
                     title: 'Blog Post 1',
                     date: '2023-01-01',
-                    content: 'This is the content of Blog Post 1.',
-                    categories: ['Tech', 'Programming']
+                    content: 'This is the content of Blog Post 1.'
                 },
                 {
                     id: 2,
                     title: 'Blog Post 2',
                     date: '2023-02-15',
-                    content: 'This is the content of Blog Post 2.',
-                    categories: ['Tech', 'Gadgets']
-                },
-                // Add more blog posts here
+                    content: 'This is the content of Blog Post 2.'
+                }
             ];
 
-            // Get unique categories for filtering
-            $scope.categories = getUniqueCategories($scope.blogPosts);
+            $scope.categories = ['Tech', 'Programming', 'Gadgets'];
 
-            // Filter blog posts by category
             $scope.filterByCategory = function(category) {
                 // Implement filtering logic here
                 // Update the blogPosts array to show only posts in the selected category
             };
-
-            // Collect and display user information
-            document.getElementById('browserInfo').textContent = navigator.userAgent;
-            document.getElementById('osInfo').textContent = navigator.platform;
-            document.getElementById('dateInfo').textContent = new Date().toDateString();
-            document.getElementById('timeInfo').textContent = new Date().toLocaleTimeString();
-            document.getElementById('timezoneInfo').textContent = Intl.DateTimeFormat().resolvedOptions().timeZone;
-            document.getElementById('locationInfo').textContent = "User's Location (Not Available)";
-            document.getElementById('languageInfo').textContent = navigator.language;
-            document.getElementById('resolutionInfo').textContent = `${window.innerWidth}x${window.innerHeight}`;
-            document.getElementById('referralInfo').textContent = document.referrer || "Direct Visit";
-            document.getElementById('userStatusInfo').textContent = "User Status (Not Available)";
         });
-
-        app.controller('PostController', function($scope, $routeParams) {
-            // Load and display the individual blog post based on postId
-        });
-
-        function getUniqueCategories(blogPosts) {
-            // Implement a function to extract unique categories from the blog posts
-        }
     </script>
 </body>
 </html>
