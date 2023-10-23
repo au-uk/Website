@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guess You?</title>
+    <title>Random Color Cycle with User Data</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -24,6 +24,14 @@
             font-size: 1.5rem;
         }
 
+        .copyright {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+        }
+
         @media (max-width: 768px) {
             .user-data {
                 font-size: 1rem;
@@ -33,6 +41,10 @@
 </head>
 <body>
     <div class="user-data" id="userData">
+    </div>
+
+    <div class="copyright">
+        &copy; 2023 AU-UK. <a href="https://github.com/au-uk" target="_blank">GitHub</a>
     </div>
 
     <script>
