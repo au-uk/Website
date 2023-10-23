@@ -7,7 +7,7 @@ layout: default
 <head>
     <meta charset="UTF-8">
     <title>{{ page.title }}</title>
-    <link rel="stylesheet" href="{{ site.baseurl }}/_sass/main.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container">
@@ -50,7 +50,19 @@ layout: default
         <p><strong>Referral Source:</strong> {{ site.data.user_info.referral }}</p>
         <p><strong>User Status:</strong> {{ site.data.user_info.user_status }}</p>
     </footer>
-
-    <script src="{{ site.baseurl }}/_includes/main.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById('browserInfo').textContent = navigator.userAgent;
+            document.getElementById('osInfo').textContent = navigator.platform;
+            document.getElementById('dateInfo').textContent = new Date().toDateString();
+            document.getElementById('timeInfo').textContent = new Date().toLocaleTimeString();
+            document.getElementById('timezoneInfo').textContent = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            document.getElementById('locationInfo').textContent = "User's Location (Not Available)";
+            document.getElementById('languageInfo').textContent = navigator.language;
+            document.getElementById('resolutionInfo').textContent = `${window.innerWidth}x${window.innerHeight}`;
+            document.getElementById('referralInfo').textContent = document.referrer || "Direct Visit";
+            document.getElementById('userStatusInfo').textContent = "User Status (Not Available)";
+        });
+    </script>
 </body>
 </html>
