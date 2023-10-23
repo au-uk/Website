@@ -26,15 +26,16 @@
             font-size: 1rem;
         }
 
-        /* Custom CSS for the Matrix effect */
+        /* Custom CSS for the Matrix effect container */
         .matrix-container {
             position: absolute;
-            top: 0;
+            top: 20%;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 20%;
             pointer-events: none;
             z-index: -1;
+            overflow: hidden;
         }
 
         .matrix-text {
@@ -54,7 +55,7 @@
                 <strong>Time:</strong> <span id="timeInfo">Loading...</span>
                 <strong>Timezone:</strong> <span id="timezoneInfo">Loading...</span>
                 <strong>Location:</strong> <span id="locationInfo">Loading...</span>
-                <strong>Language:</strong> <span id="languageInfo">Loading...</span>
+                <strong>Language:</strong> <span id "languageInfo">Loading...</span>
             </p>
         </div>
     </div>
@@ -98,7 +99,7 @@
             for (let i = 0; i < columns; i++) {
                 matrixText[i] = {
                     text: "",
-                    y: Math.floor(Math.random() * window.innerHeight),
+                    y: Math.floor(Math.random() * matrixContainer.clientHeight),
                     speed: Math.floor(Math.random() * 5) + 1,
                 };
             }
@@ -115,7 +116,7 @@
                     matrixContainer.appendChild(text);
 
                     // Randomly update the text and y position
-                    if (Math.random() > 0.975 || item.y > window.innerHeight) {
+                    if (Math.random() > 0.975 || item.y > matrixContainer.clientHeight) {
                         item.text = characters[Math.floor(Math.random() * characters.length)];
                         item.y = 0;
                         item.speed = Math.floor(Math.random() * 5) + 1;
