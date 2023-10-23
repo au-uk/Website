@@ -1,0 +1,56 @@
+---
+layout: default
+---
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{ page.title }}</title>
+    <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/main.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="text-center mt-4">
+            <h1 class="display-4">{{ page.title }}</h1>
+        </header>
+
+        <!-- Main Content Section -->
+        <section class="mt-4">
+            <div class="row">
+                <!-- Blog Posts Column -->
+                <div class="col-md-8">
+                    <!-- Loop through and display each blog post -->
+                    {% for post in site.posts %}
+                    <div class="blog-post">
+                        <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+                        <p class="text-muted">{{ post.date | date: "%B %d, %Y" }}</p>
+                        <p>{{ post.content | strip_html | truncatewords: 50 }}</p>
+                        <a href="{{ post.url }}" class="btn btn-primary">Read More</a>
+                        <hr>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="text-center mt-4">
+        <h2>Experiment into what the sites you visit know about you</h2>
+        <p><strong>Browser:</strong> {{ site.data.user_info.browser }}</p>
+        <p><strong>Operating System:</strong> {{ site.data.user_info.os }}</p>
+        <p><strong>Date:</strong> {{ site.data.user_info.date }}</p>
+        <p><strong>Time:</strong> {{ site.data.user_info.time }}</p>
+        <p><strong>Timezone:</strong> {{ site.data.user_info.timezone }}</p>
+        <p><strong>Location:</strong> {{ site.data.user_info.location }}</p>
+        <p><strong>Language:</strong> {{ site.data.user_info.language }}</p>
+        <p><strong>Device Resolution:</strong> {{ site.data.user_info.resolution }}</p>
+        <p><strong>Referral Source:</strong> {{ site.data.user_info.referral }}</p>
+        <p><strong>User Status:</strong> {{ site.data.user_info.user_status }}</p>
+    </footer>
+
+    <script src="{{ site.baseurl }}/assets/js/main.js"></script>
+</body>
+</html>
