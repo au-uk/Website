@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html ng-app="myBlogApp">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>My Tech Blog</title>
+    <title>au-uk v7</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container">
         <!-- Header Section -->
         <header class="text-center mt-4">
-            <h1 class="display-4">My Tech Blog v1</h1>
+            <h1 class="display-4">An aide memoire for an ailing mind</h1>
         </header>
 
         <!-- Main Content Section -->
@@ -33,7 +33,7 @@
                     <ul class="list-group">
                         <!-- Loop through and display categories with filter links -->
                         <li class="list-group-item" ng-repeat="category in categories">
-                            <a ng-click="filterByCategory(category)">{{ category }}</a>
+                            <a ng-click("filterByCategory(category)")">{{ category }}</a>
                         </li>
                     </ul>
                 </div>
@@ -43,35 +43,24 @@
 
     <!-- Footer Section -->
     <footer class="text-center mt-4">
+        <h2>Unveiling Your Digital Footprint: What Websites Know About You</h2>
         <p><strong>Browser:</strong> <span id="browserInfo"></span></p>
         <p><strong>Operating System:</strong> <span id="osInfo"></span></p>
         <p><strong>Date:</strong> <span id="dateInfo"></span></p>
         <p><strong>Time:</strong> <span id="timeInfo"></span></p>
         <p><strong>Timezone:</strong> <span id="timezoneInfo"></span></p>
+        <p><strong>Location:</strong> <span id="locationInfo"></span></p>
+        <p><strong>Language:</strong> <span id="languageInfo"></span></p>
+        <p><strong>Device Resolution:</strong> <span id="resolutionInfo"></span></p>
+        <p><strong>Referral Source:</strong> <span id="referralInfo"></span></p>
+        <p><strong>User Status:</strong> <span id="userStatusInfo"></span></p>
     </footer>
 
     <script src="https://ajax.googleapis.com/libs/angularjs/1.8.2/angular.min.js"></script>
     <script>
-        var app = angular.module('myBlogApp', ['ngRoute']);
-
-        app.config(function($routeProvider) {
-            // Set up AngularJS routing for different views (main blog and individual post)
-            $routeProvider
-                .when('/', {
-                    templateUrl: 'blog.html',
-                    controller: 'MainController'
-                })
-                .when('/post/:postId', {
-                    templateUrl: 'post.html',
-                    controller: 'PostController'
-                })
-                .otherwise({
-                    redirectTo: '/'
-                });
-        });
+        var app = angular.module('myBlogApp', []);
 
         app.controller('MainController', function($scope) {
-            // Blog posts data
             $scope.blogPosts = [
                 {
                     id: 1,
@@ -86,66 +75,31 @@
                     date: '2023-02-15',
                     content: 'This is the content of Blog Post 2.',
                     categories: ['Tech', 'Gadgets']
-                },
-                // Add more blog posts here
+                }
             ];
 
-            // Get unique categories for filtering
             $scope.categories = getUniqueCategories($scope.blogPosts);
 
-            // Filter blog posts by category
             $scope.filterByCategory = function(category) {
                 // Implement filtering logic here
                 // Update the blogPosts array to show only posts in the selected category
             };
 
-            // Collect user information
-            var browserInfo = getBrowserInfo();
-            var osInfo = getOsInfo();
-            var dateInfo = getCurrentDate();
-            var timeInfo = getCurrentTime();
-            var timezoneInfo = getTimezone();
-
-            document.getElementById('browserInfo').textContent = browserInfo;
-            document.getElementById('osInfo').textContent = osInfo;
-            document.getElementById('dateInfo').textContent = dateInfo;
-            document.getElementById('timeInfo').textContent = timeInfo;
-            document.getElementById('timezoneInfo').textContent = timezoneInfo;
-        });
-
-        app.controller('PostController', function($scope, $routeParams) {
-            // Load and display the individual blog post based on postId
+            // Collect and display user information
+            document.getElementById('browserInfo').textContent = navigator.userAgent;
+            document.getElementById('osInfo').textContent = navigator.platform;
+            document.getElementById('dateInfo').textContent = new Date().toDateString();
+            document.getElementById('timeInfo').textContent = new Date().toLocaleTimeString();
+            document.getElementById('timezoneInfo').textContent = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            document.getElementById('locationInfo').textContent = "User's Location (Not Available)";
+            document.getElementById('languageInfo').textContent = navigator.language;
+            document.getElementById('resolutionInfo').textContent = `${window.innerWidth}x${window.innerHeight}`;
+            document.getElementById('referralInfo').textContent = document.referrer || "Direct Visit";
+            document.getElementById('userStatusInfo').textContent = "User Status (Not Available)";
         });
 
         function getUniqueCategories(blogPosts) {
             // Implement a function to extract unique categories from the blog posts
-        }
-
-        function getBrowserInfo() {
-            // Get and return browser information
-            return navigator.userAgent;
-        }
-
-        function getOsInfo() {
-            // Get and return operating system information
-            return navigator.platform;
-        }
-
-        function getCurrentDate() {
-            // Get and return the current date
-            var now = new Date();
-            return now.toDateString();
-        }
-
-        function getCurrentTime() {
-            // Get and return the current time
-            var now = new Date();
-            return now.toLocaleTimeString();
-        }
-
-        function getTimezone() {
-            // Get and return the user's timezone
-            return Intl.DateTimeFormat().resolvedOptions().timeZone;
         }
     </script>
 </body>
