@@ -9,7 +9,7 @@
     <div class="container">
         <!-- Header Section -->
         <header class="text-center mt-4">
-            <h1 class="display-4">Unveiling our Digital Footprint</h1>
+            <h1 class="display-4">Experiment</h1>
         </header>
 
         <!-- Main Content Section -->
@@ -17,7 +17,7 @@
             <div class="row">
                 <!-- User Information -->
                 <div class="col-md-6 offset-md-3">
-                    <h2>What Websites Know About You</h2>
+                    <h2>Unveiling our digital footprint with client side JS</h2>
                     <p><strong>Browser:</strong> <span id="browserInfo">Loading...</span></p>
                     <p><strong>Operating System:</strong> <span id="osInfo">Loading...</span></p>
                     <p><strong>Date:</strong> <span id="dateInfo">Loading...</span></p>
@@ -37,12 +37,23 @@
         document.getElementById('dateInfo').textContent = new Date().toDateString();
         document.getElementById('timeInfo').textContent = new Date().toLocaleTimeString();
         document.getElementById('timezoneInfo').textContent = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        
-        // For location, you may need to use an external service or HTML5 Geolocation API.
-        // This example shows "Not Available" as a placeholder.
-        document.getElementById('locationInfo').textContent = "Not Available";
-        
         document.getElementById('languageInfo').textContent = navigator.language;
+
+        // Function to get and display user's location
+        function getUserLocation() {
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+                    document.getElementById('locationInfo').textContent = `Latitude: ${latitude}, Longitude: ${longitude}`;
+                });
+            } else {
+                document.getElementById('locationInfo').textContent = "Location not available.";
+            }
+        }
+
+        // Call the function to get the user's location
+        getUserLocation();
     </script>
 </body>
 </html>
