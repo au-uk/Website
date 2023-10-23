@@ -11,20 +11,36 @@
             color: #fff;
             text-align: center;
             padding: 10px;
+            overflow: hidden;
+        }
+        
+        .banner-content {
+            animation: scrollData 20s linear infinite;
+        }
+
+        @keyframes scrollData {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
         }
     </style>
 </head>
 <body>
     <!-- Web Banner with User Data -->
     <div class="web-banner">
-        <p>This is a responsive web banner.</p>
-        <p><strong>Browser:</strong> <span id="browserInfo">Loading...</span></p>
-        <p><strong>Operating System:</strong> <span id="osInfo">Loading...</span></p>
-        <p><strong>Date:</strong> <span id="dateInfo">Loading...</span></p>
-        <p><strong>Time:</strong> <span id="timeInfo">Loading...</span></p>
-        <p><strong>Timezone:</strong> <span id="timezoneInfo">Loading...</span></p>
-        <p><strong>Location:</strong> <span id="locationInfo">Loading...</span></p>
-        <p><strong>Language:</strong> <span id="languageInfo">Loading...</span></p>
+        <div class="banner-content">
+            <p>This is a responsive web banner. <strong>Browser:</strong> <span id="browserInfo">Loading...</span>
+                <strong>Operating System:</strong> <span id="osInfo">Loading...</span>
+                <strong>Date:</strong> <span id="dateInfo">Loading...</span>
+                <strong>Time:</strong> <span id="timeInfo">Loading...</span>
+                <strong>Timezone:</strong> <span id="timezoneInfo">Loading...</span>
+                <strong>Location:</strong> <span id="locationInfo">Loading...</span>
+                <strong>Language:</strong> <span id="languageInfo">Loading...</span>
+            </p>
+        </div>
     </div>
 
     <div class="container">
