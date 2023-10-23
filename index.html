@@ -1,137 +1,121 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Responsive Web Page</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Color Cycle with User Data</title>
     <style>
-        /* Custom CSS for the banner */
-        .web-banner {
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #007BFF;
             color: #fff;
             text-align: center;
+            transition: background-color 2s, color 2s;
+            position: relative;
+        }
+
+        header {
+            background-color: inherit;
+            padding: 20px;
+        }
+
+        section {
+            padding: 20px;
+        }
+
+        footer {
+            background-color: inherit;
             padding: 10px;
-            overflow: hidden;
-            background-color: #007BFF;
-            transition: background-color 2s, color 2s;
-        }
-        
-        .banner-content {
-            white-space: nowrap;
-            animation: scrollData 40s linear infinite;
-        }
-        
-        /* Center the scrolling text */
-        .banner-content p {
-            display: inline-block;
-            margin: 0;
-            font-size: 1rem;
         }
 
-        /* Custom CSS for the additional section */
-        .additional-section {
-            height: calc(100vh - 40px); /* Adjust height to account for the web banner */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            transition: background-color 2s, color 2s;
+        .user-data {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5rem;
         }
 
-        /* Center the content in the additional section */
-        .additional-content {
-            font-size: 2rem;
+        @media (max-width: 768px) {
+            header, section, footer {
+                padding: 10px;
+            }
+
+            .user-data {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Web Banner with User Data -->
-    <div class="web-banner" id="webBanner">
-        <div class="banner-content">
-            <p>Your digital footprint <strong>Browser:</strong> <span id="browserInfo">Loading...</span>
-                <strong>Operating System:</strong> <span id="osInfo">Loading...</span>
-                <strong>Date:</strong> <span id="dateInfo">Loading...</span>
-                <strong>Time:</strong> <span id="timeInfo">Loading...</span>
-                <strong>Timezone:</strong> <span id="timezoneInfo">Loading...</span>
-                <strong>Location:</strong> <span id="locationInfo">Loading...</span>
-                <strong>Language:</strong> <span id="languageInfo">Loading...</span>
-            </p>
-        </div>
-    </div>
+    <header>
+        <h1>Random Color Cycle with User Data</h1>
+    </header>
 
-    <!-- Additional Section with Changing Colors -->
-    <div class="additional-section" id="additionalSection">
-        <div class="additional-content">
-            <p>This is the additional section with changing colors.</p>
-        </div>
+    <section id="content">
+    </section>
+
+    <footer>
+        &copy; 2023 AU-UK
+    </footer>
+
+    <div class="user-data" id="userData">
+        <p><strong>Browser:</strong> <span id="browserInfo">Loading...</span></p>
+        <p><strong>Operating System:</strong> <span id="osInfo">Loading...</span></p>
+        <p><strong>Date:</strong> <span id="dateInfo">Loading...</span></p>
+        <p><strong>Time:</strong> <span id="timeInfo">Loading...</span></p>
+        <p><strong>Timezone:</strong> <span id="timezoneInfo">Loading...</span></p>
     </div>
 
     <script>
-        // JavaScript code to display user information
-        document.getElementById('browserInfo').textContent = navigator.userAgent;
-        document.getElementById('osInfo').textContent = navigator.platform;
-        document.getElementById('dateInfo').textContent = new Date().toDateString();
-        document.getElementById('timeInfo').textContent = new Date().toLocaleTimeString();
-        document.getElementById('timezoneInfo').textContent = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        // JavaScript to change the background and text colors randomly
+        function changeColors() {
+            const colors = ["#007BFF", "#FF5733", "#33FF57", "#5733FF", "#FF3363", "#33FFC5"];
+            const body = document.body;
+            const header = document.querySelector("header");
+            const section = document.querySelector("#content");
+            const footer = document.querySelector("footer");
+            const userData = document.getElementById("userData");
 
-        // Function to get and display user's location
-        function getUserLocation() {
-            if ("geolocation" in navigator) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    const latitude = position.coords.latitude;
-                    const longitude = position.coords.longitude;
-                    document.getElementById('locationInfo').textContent = `Latitude: ${latitude}, Longitude: ${longitude}`;
-                });
-            } else {
-                document.getElementById('locationInfo').textContent = "Location not available.";
-            }
+            setInterval(function() {
+                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                body.style.backgroundColor = randomColor;
+                body.style.color = getContrastColor(randomColor);
+                header.style.backgroundColor = "inherit";
+                section.style.backgroundColor = "inherit";
+                footer.style.backgroundColor = "inherit";
+                updateUserData();
+            }, 3000); // Change colors and user data every 3 seconds
         }
 
-        // Call the function to get the user's location
-        getUserLocation();
+        function updateUserData() {
+            const userData = document.getElementById("userData");
+            const browserInfo = document.getElementById("browserInfo");
+            const osInfo = document.getElementById("osInfo");
+            const dateInfo = document.getElementById("dateInfo");
+            const timeInfo = document.getElementById("timeInfo");
+            const timezoneInfo = document.getElementById("timezoneInfo");
 
-        // Display language information in the web banner
-        document.getElementById('languageInfo').textContent = `Language: ${navigator.language}`;
-
-        // Function to change the banner's background and text colors
-        function changeBannerColors() {
-            const banner = document.getElementById('webBanner');
-            const colors = ['#007BFF', '#FF5733', '#33FF57', '#5733FF', '#FF3363', '#33FFC5'];
-            let index = 0;
-
-            setInterval(() => {
-                banner.style.backgroundColor = colors[index];
-                banner.style.color = getContrastColor(colors[index]);
-                index = (index + 1) % colors.length;
-            }, 3000);
+            browserInfo.textContent = navigator.userAgent;
+            osInfo.textContent = navigator.platform;
+            dateInfo.textContent = new Date().toDateString();
+            timeInfo.textContent = new Date().toLocaleTimeString();
+            timezoneInfo.textContent = Intl.DateTimeFormat().resolvedOptions().timeZone;
         }
 
-        // Function to change the additional section's background and text colors
-        function changeAdditionalSectionColors() {
-            const additionalSection = document.getElementById('additionalSection');
-            const colors = ['#FF5733', '#33FF57', '#5733FF', '#FF3363', '#33FFC5', '#007BFF'];
-            let index = 0;
-
-            setInterval(() => {
-                additionalSection.style.backgroundColor = colors[index];
-                additionalSection.style.color = getContrastColor(colors[index]);
-                index = (index + 1) % colors.length;
-            }, 3000);
-        }
-
-        // Function to calculate contrast color for text
         function getContrastColor(backgroundColor) {
             const r = parseInt(backgroundColor.slice(1, 3), 16);
             const g = parseInt(backgroundColor.slice(3, 5), 16);
             const b = parseInt(backgroundColor.slice(5, 7), 16);
-
             const brightness = (r * 299 + g * 587 + b * 114) / 1000;
-
             return brightness > 128 ? '#000' : '#fff';
         }
 
-        // Start changing banner and additional section colors
-        changeBannerColors();
-        changeAdditionalSectionColors();
+        // Start changing colors and updating user data
+        changeColors();
+        updateUserData();
     </script>
 </body>
 </html>
