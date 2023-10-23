@@ -1,10 +1,67 @@
-<!doctype html>
+<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="utf-8">
-  <title>Welcome</title>
+    <meta charset="UTF-8">
+    <title>My Tech Blog</title>
+    <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/main.css">
 </head>
 <body>
-  <!-- site content -->
-  <p></p>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="text-center mt-4">
+            <h1 class="display-4">My Tech Blog</h1>
+        </header>
+
+        <!-- Main Content Section -->
+        <section class="mt-4">
+            <div class="row">
+                <!-- Blog Posts Column -->
+                <div class="col-md-8">
+                    <!-- Loop through and display each blog post -->
+                    {% for post in site.posts %}
+                    <div class="blog-post">
+                        <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+                        <p class="text-muted">{{ post.date | date: "%B %d, %Y" }}</p>
+                        <p>{{ post.content | strip_html | truncatewords: 50 }}</p>
+                        <a href="{{ post.url }}" class="btn btn-primary">Read More</a>
+                        <hr>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- About and Categories Sidebar -->
+                <div class="col-md-4">
+                    <h3 class="mb-3">About</h3>
+                    <p>This is my personal tech blog where I share insights and knowledge about various tech topics.</p>
+                    <h3 class="mt-4">Categories</h3>
+                    <ul class="list-group">
+                        <!-- Loop through and display categories with filter links -->
+                        {% for category in site.categories %}
+                        <li class="list-group-item">
+                            <a href="{{ site.baseurl }}/categories/{{ category | first }}">{{ category | first }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="text-center mt-4">
+        <h2>Unveiling Your Digital Footprint: What Websites Know About You</h2>
+        <p><strong>Browser:</strong> <span id="browserInfo"></span></p>
+        <p><strong>Operating System:</strong> <span id="osInfo"></span></p>
+        <p><strong>Date:</strong> <span id="dateInfo"></span></p>
+        <p><strong>Time:</strong> <span id="timeInfo"></span></p>
+        <p><strong>Timezone:</strong> <span id="timezoneInfo"></span></p>
+        <p><strong>Location:</strong> <span id="locationInfo"></span></p>
+        <p><strong>Language:</strong> <span id="languageInfo"></span></p>
+        <p><strong>Device Resolution:</strong> <span id="resolutionInfo"></span></p>
+        <p><strong>Referral Source:</strong> <span id="referralInfo"></span></p>
+        <p><strong>User Status:</strong> <span id="userStatusInfo"></span></p>
+    </footer>
+
+    <script src="{{ site.baseurl }}/assets/js/main.js"></script>
 </body>
 </html>
