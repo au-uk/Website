@@ -2,31 +2,46 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Browser Information</title>
+    <title>User Information</title>
 </head>
 <body>
     <div class="container">
         <!-- Header Section -->
         <header class="text-center mt-4">
-            <h1 class="display-4">Browser Information</h1>
+            <h1 class="display-4">User Information</h1>
         </header>
 
         <!-- Main Content Section -->
         <section class="mt-4">
             <div class="row">
-                <!-- Browser Info -->
+                <!-- User Information -->
                 <div class="col-md-6 offset-md-3">
-                    <h2>Your Browser:</h2>
-                    <p id="browserInfo">Loading...</p>
+                    <h2>Your Information:</h2>
+                    <p><strong>Browser:</strong> <span id="browserInfo">Loading...</span></p>
+                    <p><strong>Operating System:</strong> <span id="osInfo">Loading...</span></p>
+                    <p><strong>Date:</strong> <span id="dateInfo">Loading...</span></p>
+                    <p><strong>Time:</strong> <span id="timeInfo">Loading...</span></p>
+                    <p><strong>Timezone:</strong> <span id="timezoneInfo">Loading...</span></p>
+                    <p><strong>Location:</strong> <span id="locationInfo">Loading...</span></p>
+                    <p><strong>Language:</strong> <span id="languageInfo">Loading...</span></p>
                 </div>
             </div>
         </section>
     </div>
 
     <script>
-        // JavaScript code to display browser information
-        var browserInfo = navigator.userAgent;
-        document.getElementById('browserInfo').textContent = browserInfo;
+        // JavaScript code to display user information
+        document.getElementById('browserInfo').textContent = navigator.userAgent;
+        document.getElementById('osInfo').textContent = navigator.platform;
+        document.getElementById('dateInfo').textContent = new Date().toDateString();
+        document.getElementById('timeInfo').textContent = new Date().toLocaleTimeString();
+        document.getElementById('timezoneInfo').textContent = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        
+        // For location, you may need to use an external service or HTML5 Geolocation API.
+        // This example shows "Not Available" as a placeholder.
+        document.getElementById('locationInfo').textContent = "Not Available";
+        
+        document.getElementById('languageInfo').textContent = navigator.language;
     </script>
 </body>
 </html>
