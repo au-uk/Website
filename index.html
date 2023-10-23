@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="myBlogApp">
 <head>
     <meta charset="UTF-8">
-    <title>My Tech Blog</title>
-    <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/main.css">
+    <title>au-uk</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container">
         <!-- Header Section -->
         <header class="text-center mt-4">
-            <h1 class="display-4">My Tech Blog</h1>
+            <h1 class="display-4">An Aide-mémoire for an Ailing Brain</h1>
         </header>
 
         <!-- Main Content Section -->
@@ -18,29 +18,23 @@
                 <!-- Blog Posts Column -->
                 <div class="col-md-8">
                     <!-- Loop through and display each blog post -->
-                    {% for post in site.posts %}
-                    <div class="blog-post">
-                        <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
-                        <p class="text-muted">{{ post.date | date: "%B %d, %Y" }}</p>
-                        <p>{{ post.content | strip_html | truncatewords: 50 }}</p>
-                        <a href="{{ post.url }}" class="btn btn-primary">Read More</a>
+                    <div class="blog-post" ng-repeat="post in blogPosts">
+                        <h2>{{ post.title }}</h2>
+                        <p class="text-muted">{{ post.date }}</p>
+                        <p>{{ post.content }}</p>
+                        <a href="#/post/{{ post.id }}" class="btn btn-primary">Read More</a>
                         <hr>
                     </div>
-                    {% endfor %}
                 </div>
 
-                <!-- About and Categories Sidebar -->
+                <!-- Categories Sidebar -->
                 <div class="col-md-4">
-                    <h3 class="mb-3">About</h3>
-                    <p>This is my personal tech blog where I share insights and knowledge about various tech topics.</p>
-                    <h3 class="mt-4">Categories</h3>
+                    <h3 class="mb-3">Categories</h3>
                     <ul class="list-group">
                         <!-- Loop through and display categories with filter links -->
-                        {% for category in site.categories %}
-                        <li class="list-group-item">
-                            <a href="{{ site.baseurl }}/categories/{{ category | first }}">{{ category | first }}</a>
+                        <li class="list-group-item" ng-repeat="category in categories">
+                            <a ng-click("filterByCategory(category)")">{{ category }}</a>
                         </li>
-                        {% endfor %}
                     </ul>
                 </div>
             </div>
@@ -62,6 +56,75 @@
         <p><strong>User Status:</strong> <span id="userStatusInfo"></span></p>
     </footer>
 
-    <script src="{{ site.baseurl }}/assets/js/main.js"></script>
+    <script src="https://ajax.googleapis.com/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script>
+        var app = angular.module('myBlogApp', ['ngRoute']);
+
+        app.config(function($routeProvider) {
+            // Set up AngularJS routing for different views (main blog and individual post)
+            $routeProvider
+                .when('/', {
+                    templateUrl: 'blog.html',
+                    controller: 'MainController'
+                })
+                .when('/post/:postId', {
+                    templateUrl: 'post.html',
+                    controller: 'PostController'
+                })
+                .otherwise({
+                    redirectTo: '/'
+                });
+        });
+
+        app.controller('MainController', function($scope) {
+            // Blog posts data
+            $scope.blogPosts = [
+                {
+                    id: 1,
+                    title: 'Blog Post 1',
+                    date: '2023-01-01',
+                    content: 'This is the content of Blog Post 1.',
+                    categories: ['Tech', 'Programming']
+                },
+                {
+                    id: 2,
+                    title: 'Blog Post 2',
+                    date: '2023-02-15',
+                    content: 'This is the content of Blog Post 2.',
+                    categories: ['Tech', 'Gadgets']
+                },
+                // Add more blog posts here
+            ];
+
+            // Get unique categories for filtering
+            $scope.categories = getUniqueCategories($scope.blogPosts);
+
+            // Filter blog posts by category
+            $scope.filterByCategory = function(category) {
+                // Implement filtering logic here
+                // Update the blogPosts array to show only posts in the selected category
+            };
+
+            // Collect and display user information
+            document.getElementById('browserInfo').textContent = navigator.userAgent;
+            document.getElementById('osInfo').textContent = navigator.platform;
+            document.getElementById('dateInfo').textContent = new Date().toDateString();
+            document.getElementById('timeInfo').textContent = new Date().toLocaleTimeString();
+            document.getElementById('timezoneInfo').textContent = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            document.getElementById('locationInfo').textContent = "User's Location (Not Available)";
+            document.getElementById('languageInfo').textContent = navigator.language;
+            document.getElementById('resolutionInfo').textContent = `${window.innerWidth}x${window.innerHeight}`;
+            document.getElementById('referralInfo').textContent = document.referrer || "Direct Visit";
+            document.getElementById('userStatusInfo').textContent = "User Status (Not Available)";
+        });
+
+        app.controller('PostController', function($scope, $routeParams) {
+            // Load and display the individual blog post based on postId
+        });
+
+        function getUniqueCategories(blogPosts) {
+            // Implement a function to extract unique categories from the blog posts
+        }
+    </script>
 </body>
 </html>
