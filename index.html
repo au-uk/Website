@@ -15,9 +15,16 @@
     </style>
 </head>
 <body>
-    <!-- Web Banner -->
+    <!-- Web Banner with User Data -->
     <div class="web-banner">
-        <p>This is a responsive web banner. You can place important announcements or content here.</p>
+        <p>This is a responsive web banner.</p>
+        <p><strong>Browser:</strong> <span id="browserInfo">Loading...</span></p>
+        <p><strong>Operating System:</strong> <span id="osInfo">Loading...</span></p>
+        <p><strong>Date:</strong> <span id="dateInfo">Loading...</span></p>
+        <p><strong>Time:</strong> <span id="timeInfo">Loading...</span></p>
+        <p><strong>Timezone:</strong> <span id="timezoneInfo">Loading...</span></p>
+        <p><strong>Location:</strong> <span id="locationInfo">Loading...</span></p>
+        <p><strong>Language:</strong> <span id="languageInfo">Loading...</span></p>
     </div>
 
     <div class="container">
@@ -51,8 +58,7 @@
         document.getElementById('dateInfo').textContent = new Date().toDateString();
         document.getElementById('timeInfo').textContent = new Date().toLocaleTimeString();
         document.getElementById('timezoneInfo').textContent = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        document.getElementById('languageInfo').textContent = navigator.language;
-
+        
         // Function to get and display user's location
         function getUserLocation() {
             if ("geolocation" in navigator) {
@@ -68,6 +74,9 @@
 
         // Call the function to get the user's location
         getUserLocation();
+        
+        // Display language information in the web banner
+        document.getElementById('languageInfo').textContent = `Language: ${navigator.language}`;
     </script>
 </body>
 </html>
