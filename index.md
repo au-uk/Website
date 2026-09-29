@@ -1,6 +1,8 @@
 ---
 layout: default
 ---
+## Technologist and Bit Wrangler
+
 ## OpenSource, Home Lab, Dad Jokes N Stuff!
 
 ### Jokes (Updated weekly'sh from Mike's joke distribution)
