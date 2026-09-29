@@ -29,7 +29,7 @@ We only have one star.
 What happens if someone slaps you at high frequency?
 It hertz.
 
-have some more definitions...
+have some definitions...
 
 Shuttlecock – Air Force One.
 Slumber – big pile o’ wood, innit?
@@ -71,6 +71,8 @@ I said it must be my weekend immune system.
 
 I've been reading a very inspiring book about swimming the English channel. It's written by a guy called Francis Near. It's illustrated by Willie Makeit and additional material has been supplied by Betty Wont
 
+have some more definitions...
+
 Bordello – offhand greeting.
 Buffalo – naked greeting.
 Herbicide – the murder of a Volkswagen Beetle.
@@ -89,6 +91,7 @@ Peckish – a bit like the actor Gregory.
 
 a poem about Autumn 🍂 
 
+```
 She loved to catch
 the falling leaves
 in autumn
@@ -102,6 +105,7 @@ the
        until
                                she'd
             cautumn
+```
 
 ### Opensource
 
