@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-## AU-UK - OpenSource, Home Lab, Dad Jokes and Stuff!
+## OpenSource, Home Lab, Dad Jokes N Stuff!
 
 ### Jokes (Updated weekly'sh from Mike's joke distribution)
 
